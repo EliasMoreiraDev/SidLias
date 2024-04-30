@@ -1,10 +1,10 @@
 import { User, Lock } from "lucide-react";
-import "./login.css";
+import "./styles.css";
 import axios from "axios";
 import { FormEvent, useContext, useState } from "react";
-import api from "../api";
-import { AuthContext } from "../context/auth";
-import { useNavigate } from "react-router-dom";
+import api from "../../api";
+import { AuthContext } from "../../context/auth";
+import { useNavigate, Link } from "react-router-dom";
 
 
 export function Login() {
@@ -86,9 +86,9 @@ export function Login() {
             <div className="error-message">{error}</div>
           )}
 
-          <div className="linka">
+          <div className="link">
             <p>
-              Esqueceu a senha? <a href="">Clique aqui</a>
+              Não é cadastrado? <Link to='/cadastro'>Clique aqui</Link>
             </p>
           </div>
         </form>

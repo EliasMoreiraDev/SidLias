@@ -16,7 +16,7 @@ export const getUser = (req:Request, res:Response) => {
   const q =
   "SELECT * dados.usuario";
 
-db.query(q, (err: anyn , results: any[]) => {
+db.query(q, (err: any , results: any[]) => {
   if (err) {
     console.error(err); // Registre o erro no console para análise
     return res.status(500).json("Erro ao criar usuário.");
