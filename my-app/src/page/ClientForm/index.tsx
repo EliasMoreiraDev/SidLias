@@ -8,11 +8,11 @@ import Input from '../../components/Input';
 import api from '../../api';
 
 
-function TeacherForm(){
+function ClientForm(){
 
     const navigate = useNavigate()
 
-    const [razao, setRazao]= useState('')
+    const [razaoSocial, setRazao]= useState('')
     const [fantasia, setFanstasia]= useState('')
     const [email, setEmail]= useState('')
     const [inativo, setInativo]= useState('')
@@ -24,18 +24,17 @@ function TeacherForm(){
 
     function handleCreateUser(e: FormEvent){
         e.preventDefault()
-        console.log({razao,fantasia,email,celular, link_instagram,link_facebook,link_linkedin, link_youtube})
+        console.log({razaoSocial,fantasia,email,celular, link_instagram,link_facebook,link_linkedin, link_youtube})
 
-        api.post('/cadastro', {
-            razao,
+        api.post('/cadastro-cliente', {
+            razaoSocial,
             fantasia,
             email,
             celular,
             link_instagram,
             link_facebook,
             link_linkedin,
-            link_youtube,
-            
+            link_youtube
             
         }).then(()=>{
             alert('Cadastro realizado com sucesso')
@@ -50,7 +49,7 @@ function TeacherForm(){
                 <form onSubmit={handleCreateUser}>
                     <fieldset>
                         <legend>Seus Dados</legend>
-                        <Input name='razao' label='Razão Social' value={razao} onChange={(e)=>{setRazao(e.target.value)}}/>
+                        <Input name='razaoSocial' label='Razão Social' value={razaoSocial} onChange={(e)=>{setRazao(e.target.value)}}/>
                         <Input name='fantasia' label='Nome fantasia' value={fantasia} onChange={(e)=>{setFanstasia(e.target.value)}}/>
                         <Input name='email' label='Email' value={email} onChange={(e)=>{setEmail(e.target.value)}}/>  
                         <Input name='celular' label='celular' value={celular} onChange={(e)=>{setCelular(e.target.value)}}/>
@@ -74,4 +73,4 @@ function TeacherForm(){
 
     )
 }
-export default TeacherForm
+export default ClientForm
