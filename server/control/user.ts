@@ -14,7 +14,7 @@ const secretKey = "seu_segredo_aqui";
 
 export const getUser = (req:Request, res:Response) => {
   const q =
-  "SELECT * dados.usuario";
+  "SELECT * FROM dados.usuario";
 
 db.query(q, (err: any , results: any[]) => {
   if (err) {
@@ -57,7 +57,7 @@ export const loginUser = (req:Request, res:Response) => {
 export const addUser = (req:Request, res:Response) => {
 
 
-  const sql = "INSERT INTO ubeco.clientes(`senha`, `nome`,`email`) VALUES(?,?,?)";
+  const sql = "INSERT INTO dados.usuario(`senha`, `nome`,`email`) VALUES(?,?,?)";
 
   const values = [
     req.body.senha,

@@ -48,7 +48,11 @@ export const addSchedule = (req:Request, res:Response) => {
 
 
   export const consultSchedule = (req: Request, res: Response) => {
-    const cliente_id = req.body.cliente_id; // Obter o cliente_id do corpo da requisição
+    const cliente_id = req.params.cliente_id; // Obter o cliente_id dos parâmetros da consulta na URL
+  
+    if (!cliente_id) {
+      return res.status(400).json({ error: 'Parâmetro cliente_id ausente na URL.' });
+    }
   
     const sql = "SELECT * FROM dados.programacao p WHERE p.cliente_id = ?";
     const values = [cliente_id];
@@ -56,7 +60,7 @@ export const addSchedule = (req:Request, res:Response) => {
     db.query(sql, values, (err: any, results: any[]) => {
       if (err) {
         console.error(err);
-        return res.status(500).json(err);
+        return res.status(500).json({ error: 'Erro ao consultar programações.' });
       }
   
       return res.status(200).json(results);

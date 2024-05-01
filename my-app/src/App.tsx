@@ -5,6 +5,7 @@ import ClientForm from './page/ClientForm';
 import { Cliente } from './page/cliente';
 import { RequireAuth } from './context/RequireAuth';
 import  "../src/assets/styles/global.css"
+import Schedules from './page/Schedule';
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
         
         <Route path="/cadastro" element={<RequireAuth><ClientForm/></RequireAuth>} />
         <Route path="/cliente" element={<RequireAuth><Cliente/></RequireAuth>} />
+
+        <Route path="/schedule/:clienteId" element={<Schedules/>} />
       </Routes>
     </div>
   );
