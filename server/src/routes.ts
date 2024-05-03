@@ -18,6 +18,6 @@ routes.get('/schedules', getSchedules);
 
 routes.get('/schedules/:cliente_id', consultSchedule);
 
-routes.post('/cadastro-schedule', addSchedule);
+routes.post('/cadastro-schedules', addSchedule);
 
 export default routes;

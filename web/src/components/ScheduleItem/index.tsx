@@ -15,7 +15,7 @@ const ScheduleItem: React.FC<ScheduleBlockProps> = ({ descricao, dataPrevista, d
     const formattedDate = date.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
     const formattedTime = date.toLocaleTimeString('pt-BR', { timeZone: 'UTC', hour: '2-digit', minute: '2-digit' });
     return `${formattedDate} - ${formattedTime}`;
-  };
+};
 
   // Função para obter o nome do dia da semana a partir do número
   const getDayOfWeek = (day: number) => {

@@ -6,6 +6,7 @@ import { Cliente } from './page/cliente';
 import { RequireAuth } from './context/RequireAuth';
 import  "../src/assets/styles/global.css"
 import Schedules from './page/Schedule';
+import NewSchedule from './page/NewSchedule';
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
         <Route path="/cliente" element={<RequireAuth><Cliente/></RequireAuth>} />
 
         <Route path="/schedule/:clienteId" element={<Schedules/>} />
+
+       
       </Routes>
     </div>
   );
