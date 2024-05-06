@@ -1,6 +1,6 @@
 
 .caixa_newProject{
-    width: 451px;
+    width: 500px;
     margin: 0 auto;
     padding: 3em;
     background-color: rgba(240, 248, 255, 0);
@@ -23,7 +23,6 @@
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .modal {

@@ -66,11 +66,23 @@ export const addSchedule = (req:Request, res:Response) => {
       return res.status(200).json(results);
     });
   };
+  export const deleteSchedule = (req: Request, res: Response) => {
+    const scheduleId = req.params.scheduleId; // Obtém o ID do item de programação da URL
   
+    // Verifica se o ID do item de programação foi fornecido
+    if (!scheduleId) {
+      return res.status(400).json({ error: 'ID do item de programação ausente na URL.' });
+    }
   
-
-
-
-
-
-
+    const sql = "DELETE FROM dados.programacao WHERE id = ?";
+    const values = [scheduleId];
+  
+    db.query(sql, values, (err: any) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: 'Erro ao excluir o item de programação.' });
+      }
+  
+      return res.status(200).json({ message: 'Item de programação excluído com sucesso.' });
+    });
+  };

@@ -12,4 +12,7 @@
   .schedule-block p {
     margin: 5px 0;
   }
+  #delete_icon, #edit_icon{
+    cursor: pointer;
+  }
   
