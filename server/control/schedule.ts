@@ -86,3 +86,20 @@ export const addSchedule = (req:Request, res:Response) => {
       return res.status(200).json({ message: 'Item de programação excluído com sucesso.' });
     });
   };
+  export const updateSchedule = (req: Request, res: Response) => {
+    const scheduleId = req.params.scheduleId;
+    const { descricao, diasSemana, dataPrevista } = req.body;
+  
+    const sql = "UPDATE dados.programacao SET descricao = ?, diasSemana = ?, dataPrevista = ? WHERE id = ?";
+    const values = [descricao, diasSemana, dataPrevista, scheduleId];
+  
+    db.query(sql, values, (err: any) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: 'Erro ao atualizar o schedule.' });
+      }
+  
+      return res.status(200).json({ message: 'Schedule atualizado com sucesso.' });
+    });
+  };
+  

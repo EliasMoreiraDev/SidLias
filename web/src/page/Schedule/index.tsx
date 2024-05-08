@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../../api';
-import ScheduleItem from '../../components/ScheduleItem'; 
+import ScheduleItem from '../../components/ScheduleItem';
 import NewSchedule from '../NewSchedule';
+import EditScheduleModal from '../../components/EditScheduleModel';
 
-interface Schedule {
+export interface Schedule {
   id: number;
   descricao: string;
   diasSemana: number;
@@ -15,12 +16,17 @@ const Schedules = () => {
   const { clienteId: clientId } = useParams();
   const [schedules, setSchedules] = useState<Schedule[]>([]);
   const [isModalAddOpen, setIsModalAddOpen] = useState(false);
+  const [isModalEditOpen, setIsModalEditOpen] = useState(false);
+  const [editingSchedule, setEditingSchedule] = useState<Schedule | null>(null);
 
   useEffect(() => {
     const fetchSchedules = async () => {
       try {
         const response = await api.get(`/schedules/${clientId}`);
-        setSchedules(response.data);
+        const sortedSchedules = response.data.sort((a: Schedule, b: Schedule) => {
+          return new Date(a.dataPrevista).getTime() - new Date(b.dataPrevista).getTime();
+        });
+        setSchedules(sortedSchedules);
       } catch (error) {
         console.error('Erro ao buscar as programações:', error);
       }
@@ -30,58 +36,64 @@ const Schedules = () => {
   }, [clientId]);
 
   const openModalAdd = () => {
-    setIsModalAddOpen(true)
+    setIsModalAddOpen(true);
   }
 
   const closeModalAdd = () => {
     setIsModalAddOpen(false);
   }
 
-  const [newScheduleAdded, setNewScheduleAdded] = useState(false);
+  const openModalEdit = (schedule: Schedule) => {
+    setEditingSchedule(schedule);
+    setIsModalEditOpen(true);
+  }
 
-  useEffect(() => {
-    if (newScheduleAdded) {
-      // Recarregar as programações após adicionar uma nova
-      const fetchSchedules = async () => {
-        try {
-          const response = await api.get(`/schedules/${clientId}`);
-          setSchedules(response.data);
-        } catch (error) {
-          console.error('Erro ao buscar as programações:', error);
-        }
-      };
+  const closeModalEdit = () => {
+    setEditingSchedule(null);
+    setIsModalEditOpen(false);
+  }
 
-      fetchSchedules();
-      setNewScheduleAdded(false);
-    }
-  }, [clientId, newScheduleAdded]);
-
-  // Função para deletar um item do schedule
   const handleDeleteSchedule = async (id: number) => {
     try {
       await api.delete(`/schedules/${id}`);
-      // Atualizar a lista de schedules após a exclusão
-      setSchedules(schedules.filter(schedule => schedule.id !== id));
+      const updatedSchedules = schedules.filter(schedule => schedule.id !== id);
+      setSchedules(updatedSchedules);
     } catch (error) {
       console.error('Erro ao excluir a programação:', error);
     }
   };
 
+  const handleUpdateSchedules = async () => {
+    try {
+      const response = await api.get(`/schedules/${clientId}`);
+      const sortedSchedules = response.data.sort((a: Schedule, b: Schedule) => {
+        return new Date(a.dataPrevista).getTime() - new Date(b.dataPrevista).getTime();
+      });
+      setSchedules(sortedSchedules);
+    } catch (error) {
+      console.error('Erro ao buscar as programações:', error);
+    }
+  };
+
   return (
     <div>
-      <h1>Programações para o cliente {clientId}</h1>
+      <h1>Agenda para o cliente {clientId}</h1>
       <button onClick={openModalAdd}>Adicionar programação</button>
-      <NewSchedule isOpen={isModalAddOpen} onClose={closeModalAdd} cliente_id={clientId} setNewScheduleAdded={setNewScheduleAdded} />
-      {schedules.map(schedule => (
-        <ScheduleItem
-          key={schedule.id}
-          id={schedule.id} // Passa o id para o ScheduleItem
-          descricao={schedule.descricao}
-          dataPrevista={schedule.dataPrevista}
-          diasSemana={schedule.diasSemana}
-          onDelete={handleDeleteSchedule} // Passa a função para deletar um item
-        />
-      ))}
+      <NewSchedule isOpen={isModalAddOpen} onClose={closeModalAdd} cliente_id={clientId} setNewScheduleAdded={handleUpdateSchedules} />
+      <EditScheduleModal isOpen={isModalEditOpen} onClose={closeModalEdit} schedule={editingSchedule} setSchedule={setEditingSchedule} updateSchedules={handleUpdateSchedules} />
+      <div className="agenda">
+        {schedules.map(schedule => (
+          <ScheduleItem
+            key={schedule.id}
+            id={schedule.id}
+            descricao={schedule.descricao}
+            dataPrevista={schedule.dataPrevista}
+            diasSemana={schedule.diasSemana}
+            onDelete={handleDeleteSchedule}
+            onEdit={() => openModalEdit(schedule)}
+          />
+        ))}
+      </div>
     </div>
   );
 };
