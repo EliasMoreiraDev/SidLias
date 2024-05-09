@@ -4,6 +4,11 @@ import api from '../../api';
 import ScheduleItem from '../../components/ScheduleItem';
 import NewSchedule from '../NewSchedule';
 import EditScheduleModal from '../../components/EditScheduleModel';
+import Loader from '../../components/Loader'; 
+import './style.css'
+import PageHeader from '../../components/PageHeader';
+import NoSchedule from '../../components/NoSchedule';
+
 
 export interface Schedule {
   id: number;
@@ -18,22 +23,32 @@ const Schedules = () => {
   const [isModalAddOpen, setIsModalAddOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [editingSchedule, setEditingSchedule] = useState<Schedule | null>(null);
+  const [isLoading, setIsLoading] = useState(false); // Adicionado
 
   useEffect(() => {
-    const fetchSchedules = async () => {
-      try {
-        const response = await api.get(`/schedules/${clientId}`);
-        const sortedSchedules = response.data.sort((a: Schedule, b: Schedule) => {
-          return new Date(a.dataPrevista).getTime() - new Date(b.dataPrevista).getTime();
-        });
-        setSchedules(sortedSchedules);
-      } catch (error) {
-        console.error('Erro ao buscar as programações:', error);
-      }
-    };
-
     fetchSchedules();
   }, [clientId]);
+
+  const fetchSchedules = async () => {
+    setIsLoading(true); 
+  
+    try {
+      
+      await new Promise(resolve => setTimeout(resolve, 1000));
+  
+      const response = await api.get(`/schedules/${clientId}`);
+      const sortedSchedules = response.data.sort((a: Schedule, b: Schedule) => {
+        return new Date(a.dataPrevista).getTime() - new Date(b.dataPrevista).getTime();
+      });
+      setSchedules(sortedSchedules);
+    } catch (error) {
+      console.error('Erro ao buscar as programações:', error);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 0);
+    }
+  };
 
   const openModalAdd = () => {
     setIsModalAddOpen(true);
@@ -58,41 +73,48 @@ const Schedules = () => {
       await api.delete(`/schedules/${id}`);
       const updatedSchedules = schedules.filter(schedule => schedule.id !== id);
       setSchedules(updatedSchedules);
+      fetchSchedules()
     } catch (error) {
       console.error('Erro ao excluir a programação:', error);
     }
   };
 
   const handleUpdateSchedules = async () => {
-    try {
-      const response = await api.get(`/schedules/${clientId}`);
-      const sortedSchedules = response.data.sort((a: Schedule, b: Schedule) => {
-        return new Date(a.dataPrevista).getTime() - new Date(b.dataPrevista).getTime();
-      });
-      setSchedules(sortedSchedules);
-    } catch (error) {
-      console.error('Erro ao buscar as programações:', error);
-    }
+    fetchSchedules();
   };
 
   return (
     <div>
-      <h1>Agenda para o cliente {clientId}</h1>
-      <button onClick={openModalAdd}>Adicionar programação</button>
+      <PageHeader title='Programações do cliente'/>
+      <button onClick={openModalAdd} className="button-add" type="button">
+        <span className="button__text">Add Item</span>
+        <span  className="material-symbols-outlined button__icon" id='edit_icon' >
+          add
+        </span>
+      </button>
       <NewSchedule isOpen={isModalAddOpen} onClose={closeModalAdd} cliente_id={clientId} setNewScheduleAdded={handleUpdateSchedules} />
       <EditScheduleModal isOpen={isModalEditOpen} onClose={closeModalEdit} schedule={editingSchedule} setSchedule={setEditingSchedule} updateSchedules={handleUpdateSchedules} />
       <div className="agenda">
-        {schedules.map(schedule => (
-          <ScheduleItem
-            key={schedule.id}
-            id={schedule.id}
-            descricao={schedule.descricao}
-            dataPrevista={schedule.dataPrevista}
-            diasSemana={schedule.diasSemana}
-            onDelete={handleDeleteSchedule}
-            onEdit={() => openModalEdit(schedule)}
-          />
-        ))}
+      {isLoading ? ( 
+        <Loader />
+      ) : (
+        schedules.length === 0 ? (
+          <NoSchedule/>
+        ) : (
+          schedules.map(schedule => (
+            <ScheduleItem
+              key={schedule.id}
+              id={schedule.id}
+              descricao={schedule.descricao}
+              dataPrevista={schedule.dataPrevista}
+              diasSemana={schedule.diasSemana}
+              onDelete={handleDeleteSchedule}
+              onEdit={() => openModalEdit(schedule)}
+            />
+          ))
+        )
+      )}
+        
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ interface ScheduleBlockProps {
   dataPrevista: Date;
   diasSemana: number;
   onDelete: (id: number) => void;
-  onEdit: (id: number) => void; // Adicionado
+  onEdit: (id: number) => void; 
 }
 
 const getDayOfWeekInPortuguese = (day: number) => {
@@ -41,23 +41,38 @@ const ScheduleItem: React.FC<ScheduleBlockProps> = ({ id, descricao, dataPrevist
     closeConfirmation();
   };
 
-  const handleEdit = () => { // Adicionado
+  const handleEdit = () => { 
     onEdit(id);
   };
 
   return (
-    <div className="schedule-block">
-      <h3>{descricao}</h3>
-      <p>Data: {formattedDate}</p>
-      <p>Hora: {formattedTime}</p>
-      <p>Dia da semana: {getDayOfWeekInPortuguese(diasSemana)}</p>
+    <div className="schedule-item">
+      <div className="info-schedules">
+        <h3>{descricao}</h3>
+        <p>Data: {formattedDate}</p>
+        <p>Hora: {formattedTime}</p>
+        <p>Dia da semana: {getDayOfWeekInPortuguese(diasSemana)}</p>
+      </div>
 
-      <span className="material-symbols-outlined" id='delete_icon' onClick={openConfirmation}>
-        delete
-      </span>
-      <span className="material-symbols-outlined" id='edit_icon' onClick={handleEdit}> {/* Adicionado */}
-        edit
-      </span>
+      <div className="actions">
+        <div className="buttons-editdel">
+          <button className="delete-button button" onClick={openConfirmation}>
+            <div className="sign">
+              <span className="material-symbols-outlined" id='edit_icon' >
+                delete
+              </span>
+            </div>
+          </button>
+          <button className="edit-button button" onClick={handleEdit}>
+            <div className="sign">
+              <span className="material-symbols-outlined" id='edit_icon' >
+              edit
+              </span>
+            </div>
+          </button>
+        </div>
+        <button className="status-button button">Ver Status</button>
+      </div>
 
       <Confirmation
         isOpen={isConfirmationOpen}

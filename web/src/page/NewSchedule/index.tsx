@@ -46,17 +46,21 @@ function NewSchedule({ isOpen, onClose, cliente_id, setNewScheduleAdded }: NewSc
   return (
     <div className='modal_overlay'>
       <div className='modal'>
-        <h1 className='titulo'>Criar Programação</h1>
-        <span onClick={onClose} className="material-symbols-outlined" id='close_button'>
+        
+      <button onClick={onClose} className="buttonclose" id='close_button'>
+        <span  className="material-symbols-outlined button__icon" id='close_icon' >
           close
         </span>
+      </button>
+
+        <h1 className='titulo'>Criar Programação</h1>
 
         <form onSubmit={createPost}>
           <Input name='descricao' label='Descrição' value={descricao} onChange={(e) => setDescricao(e.target.value)} />
           <Input name='data' label='Data' type='date' value={data} onChange={(e) => setData(e.target.value)} className='input-date'/>
           <Input name='hora' label='Hora' type='time' value={hora} onChange={(e) => setHora(e.target.value)} className='input-time'/>
 
-          <button type="submit">Adicionar</button>
+          <button className='confirm_button' type="submit">Adicionar</button>
         </form>
       </div>
     </div>

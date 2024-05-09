@@ -38,34 +38,7 @@
   margin-bottom: 30px;
   margin-top: 20px;
 }
-.close_button {
-  padding: 10px;
 
-  background-color: #ffffff;
-  color: #640000;
-
-  border-radius: 5px;
-  border: 2px solid #640000;
-
-  font-size: 14pt;
-  font-weight: bold;
-
-  text-decoration: none;
-  text-align: center;
-
-  box-shadow: 2px 1px 2px rgba(0, 0, 0, 0.224);
-
-  cursor: pointer;
-
-
-  transition: transform .2s ease-in-out;
-}
-.close_button:hover{
-  background-color: #ff000048;
-  padding: 11px;
-  font-size: 14.2pt;
-  transform: scale(1.1);
-}
 .confirm_button {
   padding: 10px;
 
@@ -85,7 +58,8 @@
 
   cursor: pointer;
 
-  margin-left: 15px;
+  margin: 15px;
+  
 
   transition: transform .2s ease-in-out;
 }
@@ -99,4 +73,22 @@
 }
 #close_button{
     cursor: pointer;
+}
+#close_button{
+  padding: 15px 15px 10px 15px;
+  border: none;
+  background: none;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0px 4px 16px 6px rgba(0, 0, 0, 0.089);
+
+}
+#close_button:hover {
+  background-color: rgb(211, 21, 21);
+}
+
+#close_button:active {
+  background-color: rgb(130, 0, 0);
+}
+#close_button:hover #close_icon{
+  color: white;
 }

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import './styles.css'
 
-
+import backIcon from '../../assets/images/icons/back.svg'
 
 
 interface PageHeaderProps{
@@ -19,7 +19,7 @@ const PageHeader:React.FC<PageHeaderProps> = (props) => {
             <header className='page-header'>
                 <div className="top-bar-container">
                     <Link to={'/'}>
-                       <h1>Voltar</h1>
+                       <img src={backIcon} alt="" />
                     </Link>
                     {/* <img src={logoImg} alt="" /> */}
                 </div>
