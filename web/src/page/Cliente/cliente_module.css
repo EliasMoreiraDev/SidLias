@@ -1,0 +1,8 @@
+.lista-clientes{
+    display: flex;
+    width: 920px;
+    margin: auto;
+    flex-wrap: wrap;
+    column-count: 2;
+    column-gap: 20px;
+}

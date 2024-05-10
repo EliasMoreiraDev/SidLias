@@ -38,12 +38,12 @@ function ClientForm(){
             
         }).then(()=>{
             alert('Cadastro realizado com sucesso')
-            navigate('/')
+            navigate('/cliente')
         }).catch(()=>{alert('Erro no Cadastro')})
     }
     return(
         <div id='page-teacher-form' className='container'>
-            <PageHeader description="O primeiro passo é preencher esse formulario de inscrição" title='Cadastro de Usuário'/>
+            <PageHeader link='/cliente' description="O primeiro passo é preencher esse formulario de inscrição" title='Cadastro de Usuário'/>
 
             <main>
                 <form onSubmit={handleCreateUser}>

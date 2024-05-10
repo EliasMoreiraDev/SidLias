@@ -12,15 +12,36 @@
 
 .modal {
   background: white;
-  padding: 0 30px;
-  border-radius: 25px;
+  padding: 0 30px 30px 30px;
+  border-radius: 15px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   text-align: center;
-  width: 450px;
+  max-height: 80vh; 
+  overflow-y: auto; 
+  width: 70%; 
+  margin-top: 30px;
+  outline: none; 
+}
+/* Estilizando a barra de rolagem */
+.modal::-webkit-scrollbar {
+  border-radius: 25px;
+  width: 8px;
+  padding: 15px 15px 15px 0;
+  
+}
+
+.modal::-webkit-scrollbar-thumb {
+  background-color: #d3d3d3;
+  border-radius: 25px; 
+  
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+  background-color: #bbbbbb; /* Cor do fundo da barra de rolagem quando hover */
   
 }
 .titulo{
-  margin-bottom: 30px;
+  
   margin-top: 20px;
 }
 .close_button {

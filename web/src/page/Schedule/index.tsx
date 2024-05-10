@@ -85,7 +85,7 @@ const Schedules = () => {
 
   return (
     <div>
-      <PageHeader title='Programações do cliente'/>
+      <PageHeader link='/cliente' title='Programações do cliente'/>
       <button onClick={openModalAdd} className="button-add" type="button">
         <span className="button__text">Add Item</span>
         <span  className="material-symbols-outlined button__icon" id='edit_icon' >
