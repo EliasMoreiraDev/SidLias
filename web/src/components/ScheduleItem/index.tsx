@@ -55,6 +55,8 @@ const ScheduleItem: React.FC<ScheduleBlockProps> = ({ id, descricao, dataPrevist
       </div>
 
       <div className="actions">
+        
+        <button className="status-button button">Ver Status</button>
         <div className="buttons-editdel">
           <button className="delete-button button" onClick={openConfirmation}>
             <div className="sign">
@@ -71,7 +73,6 @@ const ScheduleItem: React.FC<ScheduleBlockProps> = ({ id, descricao, dataPrevist
             </div>
           </button>
         </div>
-        <button className="status-button button">Ver Status</button>
       </div>
 
       <Confirmation
