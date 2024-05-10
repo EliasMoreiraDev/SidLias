@@ -21,7 +21,7 @@ export function Login() {
       if (email && password) {
         const isLogged = await auth.signin(email, password);
         if (isLogged) {
-          navigate("/cadastro-cliente"); 
+          navigate("/cliente"); 
         } else {
           throw new Error("Não foi possível fazer login.");
         }
@@ -86,11 +86,6 @@ export function Login() {
             <div className="error-message">{error}</div>
           )}
 
-          <div className="link">
-            <p>
-              Não é cadastrado? <Link to='/cadastro-cliente'>Clique aqui</Link>
-            </p>
-          </div>
         </form>
       </div>
     </div>

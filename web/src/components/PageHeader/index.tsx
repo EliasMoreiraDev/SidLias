@@ -5,12 +5,14 @@ import { Link } from 'react-router-dom';
 import './styles.css'
 
 import backIcon from '../../assets/images/icons/back.svg'
+import { link } from 'fs';
 
 
 interface PageHeaderProps{
     title:string;
     children?:React.ReactNode;
-    description?:string
+    description?:string,
+    link: string
 }
 
 const PageHeader:React.FC<PageHeaderProps> = (props) => {
@@ -18,7 +20,7 @@ const PageHeader:React.FC<PageHeaderProps> = (props) => {
         
             <header className='page-header'>
                 <div className="top-bar-container">
-                    <Link to={'/'}>
+                    <Link to={props.link}>
                        <img src={backIcon} alt="" />
                     </Link>
                     {/* <img src={logoImg} alt="" /> */}

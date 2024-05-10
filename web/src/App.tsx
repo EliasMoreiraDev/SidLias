@@ -2,11 +2,12 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Login } from './page/LoginUser';
 import ClientForm from './page/ClientForm';
-import { Cliente } from './page/cliente';
+
 import { RequireAuth } from './context/RequireAuth';
 import  "../src/assets/styles/global.css"
 import Schedules from './page/Schedule';
-import NewSchedule from './page/NewSchedule';
+import Cliente from './page/Cliente';
+
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Route path="/" element={<Login />} />
         
         <Route path="/cadastro-cliente" element={<RequireAuth><ClientForm/></RequireAuth>} />
-        <Route path="/cliente" element={<RequireAuth><Cliente/></RequireAuth>} />
+        <Route path="/cliente" element={<Cliente/>} />
 
         <Route path="/schedule/:clienteId" element={<Schedules/>} />
 

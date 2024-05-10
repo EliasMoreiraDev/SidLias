@@ -52,10 +52,12 @@ const EditScheduleModal: React.FC<EditScheduleModalProps> = ({ isOpen, onClose, 
   return (
     <div className="modal_overlay">
       <div className="modal">
-      <span className="material-symbols-outlined" id='delete_icon' onClick={onClose}>
-        cancel
-      </span>
-        <h2>Editar Schedule</h2>
+      <button onClick={onClose} className="close_button" id='close_button'>
+        <span  className="material-symbols-outlined button__icon" id='close_icon' >
+          close
+        </span>
+      </button>
+        <h2 className='titulo'>Editar Schedule</h2>
         <form onSubmit={handleUpdate}>
           <Input name='descricao' label='Descrição' value={newDescricao} onChange={(e) => setNewDescricao(e.target.value)} />
           <Input name='data' label='Data' type='date' value={newData} onChange={(e) => setNewData(e.target.value)} />

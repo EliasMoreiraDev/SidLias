@@ -42,3 +42,75 @@ export const addClient = (req:Request, res:Response) => {
       return res.status(200).json("Usuário criado com sucesso.");
     });
   };
+  export const deleteClient = (req: Request, res: Response) => {
+    const clientId = req.params.clientId;
+  
+    if (!clientId) {
+      return res.status(400).json({ error: 'ID do cliente ausente na URL.' });
+    }
+  
+    const deleteProgramacaoQuery = "DELETE FROM dados.programacao WHERE cliente_id = ?";
+    const deleteClientQuery = "DELETE FROM dados.cliente WHERE id = ?";
+  
+    db.beginTransaction((err: any) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: 'Erro ao iniciar a transação.' });
+      }
+  
+      db.query(deleteProgramacaoQuery, [clientId], (err: any) => {
+        if (err) {
+          console.error(err);
+          return db.rollback(() => {
+            res.status(500).json({ error: 'Erro ao excluir os registros de programação.' });
+          });
+        }
+  
+        db.query(deleteClientQuery, [clientId], (err: any) => {
+          if (err) {
+            console.error(err);
+            return db.rollback(() => {
+              res.status(500).json({ error: 'Erro ao excluir o cliente.' });
+            });
+          }
+  
+          // Commit da transação se tudo ocorrer bem
+          db.commit((err: any) => {
+            if (err) {
+              console.error(err);
+              return db.rollback(() => {
+                res.status(500).json({ error: 'Erro ao confirmar a transação.' });
+              });
+            }
+            res.status(200).json({ message: 'Cliente e registros de programação excluídos com sucesso.' });
+          });
+        });
+      });
+    });
+  };
+  
+  export const updateClient = (req: Request, res: Response) => {
+    const clientId = req.params.scheduleId;
+  
+    const sql = "UPDATE dados.cliente SET razaoSocial= ?, fantasia= ?, email= ?, celular= ?, link_instagram= ?, link_facebook,= ? link_linkedin= ?, link_youtube = ? WHERE id = ?";
+    const values = [
+      req.body.razaoSocial,
+      req.body.fantasia,
+      req.body.email,
+      req.body.celular,
+      req.body.link_instagram,
+      req.body.link_facebook,
+      req.body.link_linkedin,
+      req.body.link_youtube,
+      clientId
+    ];
+  
+    db.query(sql, values, (err: any) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: 'Erro ao atualizar o Client.' });
+      }
+  
+      return res.status(200).json({ message: 'Schedule atualizado com sucesso.' });
+    });
+  };

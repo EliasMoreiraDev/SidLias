@@ -1,7 +1,9 @@
 import express from "express";
-import { addClient, getClient } from '../control/client';
+import { addClient, deleteClient, getClient, updateClient } from '../control/client';
 import { addUser, getUser, loginUser } from '../control/user';
 import { getSchedules, addSchedule, consultSchedule, deleteSchedule, updateSchedule } from '../control/schedule';
+
+import {consultStatus, getStatus} from '../control/status'
 
 const routes = express.Router();
 
@@ -12,6 +14,9 @@ routes.post('/cadastro-usuario', addUser);
 routes.get('/cadastro-cliente', getClient);
 routes.post('/cadastro-cliente', addClient);
 
+routes.delete('/cliente/:clientId', deleteClient);
+
+routes.put('/cliente/:clientId', updateClient);
 
 routes.get('/schedules', getSchedules);
 
@@ -25,5 +30,10 @@ routes.delete('/schedules/:scheduleId', deleteSchedule);
 
 routes.put('/schedules/:scheduleId', updateSchedule);
 
+
+routes.get('/status', getStatus);
+
+
+routes.get('/status/:programacao_id', consultStatus);
 
 export default routes;
