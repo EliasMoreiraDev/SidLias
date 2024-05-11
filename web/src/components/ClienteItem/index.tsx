@@ -81,13 +81,13 @@ const ClienteItem: React.FC<ClienteItemProps> = ({ empresa, onDelete, onEdit }) 
           <a href={`https://www.facebook.com/${empresa.link_facebook}`} target="_blank" rel="noopener noreferrer">
             <img src={face} alt="Facebook" />
           </a>
-          <a href={`https://www.instagram.com/${empresa.link_facebook}`} target="_blank" rel="noopener noreferrer">
+          <a href={`https://www.instagram.com/${empresa.link_instagram}`} target="_blank" rel="noopener noreferrer">
             <img src={insta} alt="Instagram" />
           </a>
-          <a href={`https://www.linkedin.com/${empresa.link_facebook}`} target="_blank" rel="noopener noreferrer">
+          <a href={`https://www.linkedin.com/${empresa.link_linkedin}`} target="_blank" rel="noopener noreferrer">
             <img src={linke} alt="Linkedin" />
           </a>
-          <a href={`https://www.youtube.com/${empresa.link_facebook}`} target="_blank" rel="noopener noreferrer">
+          <a href={`https://www.youtube.com/${empresa.link_youtube}`} target="_blank" rel="noopener noreferrer">
             <img src={youtube} alt="Youtube" />
           </a>
         </div>
