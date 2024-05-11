@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         
-        <Route path="/cadastro-cliente" element={<RequireAuth><ClientForm/></RequireAuth>} />
+        <Route path="/cadastro-cliente" element={<ClientForm/>} />
         <Route path="/cliente" element={<Cliente/>} />
 
         <Route path="/schedule/:clienteId" element={<Schedules/>} />

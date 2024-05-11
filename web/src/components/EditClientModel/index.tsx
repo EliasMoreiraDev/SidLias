@@ -21,6 +21,7 @@ const EditClientModal: React.FC<EditClientModalProps> = ({ isOpen, onClose, clie
   const [newLinkFacebook, setNewLinkFacebook] = useState('');
   const [newLinkLinkedin, setNewLinkLinkedin] = useState('');
   const [newLinkYoutube, setNewLinkYoutube] = useState('');
+  const [newLogo, setNewLogo] = useState('');
 
   useEffect(() => {
     if (client) {
@@ -32,6 +33,7 @@ const EditClientModal: React.FC<EditClientModalProps> = ({ isOpen, onClose, clie
       setNewLinkFacebook(client.link_facebook || '');
       setNewLinkLinkedin(client.link_linkedin || '');
       setNewLinkYoutube(client.link_youtube || '');
+      setNewLogo(client.logo || '');
     }
   }, [client]);
 
@@ -48,6 +50,7 @@ const EditClientModal: React.FC<EditClientModalProps> = ({ isOpen, onClose, clie
         link_facebook: newLinkFacebook,
         link_linkedin: newLinkLinkedin,
         link_youtube: newLinkYoutube,
+        logo: newLogo
       });
 
       updateClient();
@@ -79,6 +82,7 @@ const EditClientModal: React.FC<EditClientModalProps> = ({ isOpen, onClose, clie
         <Input name="link_facebook" label="Facebook" value={newLinkFacebook} onChange={(e) => setNewLinkFacebook(e.target.value)} />
         <Input name="link_linkedin" label="Linkedin" value={newLinkLinkedin} onChange={(e) => setNewLinkLinkedin(e.target.value)} />
         <Input name="link_youtube" label="Youtube" value={newLinkYoutube} onChange={(e) => setNewLinkYoutube(e.target.value)} />
+        <Input name='logo' label='Logo da Empresa' value={newLogo} onChange={(e)=>{setNewLogo(e.target.value)}}/>
         <button onClick={handleUpdate} className='confirm_button' type="submit">Atualizar</button>
       </form>
     </div>

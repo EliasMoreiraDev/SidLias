@@ -20,7 +20,7 @@ export const getClient = (req: Request, res: Response) => {
 
 export const addClient = (req:Request, res:Response) => {
     const q =
-      "INSERT INTO dados.cliente(`razaoSocial`, `fantasia`, `email`, `celular`, `link_instagram`, `link_facebook`, `link_linkedin`, `link_youtube`) VALUES(?,?,?,?,?,?,?,?)";
+      "INSERT INTO dados.cliente(`razaoSocial`, `fantasia`, `email`, `celular`, `link_instagram`, `link_facebook`, `link_linkedin`, `link_youtube`, `logo`) VALUES(?,?,?,?,?,?,?,?,?)";
   
     const values = [
       req.body.razaoSocial,
@@ -30,7 +30,8 @@ export const addClient = (req:Request, res:Response) => {
       req.body.link_instagram,
       req.body.link_facebook,
       req.body.link_linkedin,
-      req.body.link_youtube
+      req.body.link_youtube,
+      req.body.logo
     ];
   
     db.query(q, values, (err: any) => {
@@ -90,9 +91,10 @@ export const addClient = (req:Request, res:Response) => {
   };
   
   export const updateClient = (req: Request, res: Response) => {
-    const clientId = req.params.scheduleId;
+    const clientId = req.params.clientId;
   
-    const sql = "UPDATE dados.cliente SET razaoSocial= ?, fantasia= ?, email= ?, celular= ?, link_instagram= ?, link_facebook,= ? link_linkedin= ?, link_youtube = ? WHERE id = ?";
+    const sql = "UPDATE dados.cliente SET razaoSocial = ?, fantasia = ?, email = ?, celular = ?, link_instagram = ?, link_facebook = ?, link_linkedin = ?, link_youtube = ?, logo = ? WHERE id = ?";
+
     const values = [
       req.body.razaoSocial,
       req.body.fantasia,
@@ -102,6 +104,7 @@ export const addClient = (req:Request, res:Response) => {
       req.body.link_facebook,
       req.body.link_linkedin,
       req.body.link_youtube,
+      req.body.logo,
       clientId
     ];
   

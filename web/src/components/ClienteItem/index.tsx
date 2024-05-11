@@ -18,6 +18,7 @@ interface Empresa {
   link_facebook?: string;
   link_linkedin?: string;
   link_youtube?: string;
+  logo?: string
 }
 
 interface ClienteItemProps {
@@ -53,23 +54,43 @@ const ClienteItem: React.FC<ClienteItemProps> = ({ empresa, onDelete, onEdit }) 
   return (
     <div id="card">
       <div className="info-emp">
-        <h2>{empresa.fantasia}</h2>
-        <p>{empresa.razaoSocial}</p>
-        <a href={`mailto:${empresa.email}`}>{empresa.email}</a> <br />
-        <a href={`tel:+${empresa.celular}`}>+{empresa.celular}</a>
-        <p>90% - Save as lead</p>
-        <a href={empresa.link_facebook} target="_blank" rel="noopener noreferrer">
-          <img src={face} alt="Facebook" />
-        </a>
-        <a href={empresa.link_instagram} target="_blank" rel="noopener noreferrer">
-          <img src={insta} alt="Instagram" />
-        </a>
-        <a href={empresa.link_linkedin} target="_blank" rel="noopener noreferrer">
-          <img src={linke} alt="Linkedin" />
-        </a>
-        <a href={empresa.link_youtube} target="_blank" rel="noopener noreferrer">
-          <img src={youtube} alt="Youtube" />
-        </a>
+        <h2 className='fantasia-emp'>{empresa.fantasia}</h2>
+        <p className='razao-emp'>{empresa.razaoSocial}</p>
+
+        
+          
+          <a href={`mailto:${empresa.email}`} className="mail-container">
+            <span className="material-symbols-outlined">
+              mail
+            </span> 
+            <p className="link-contato">{empresa.email}</p>
+          </a>
+        
+
+        
+          
+          <a href={`tel:+${empresa.celular}`} className="telefone-container">
+            <span  className="material-symbols-outlined">
+              call
+            </span>
+            <p className="link-contato">+{empresa.celular}</p>
+          </a>
+        
+        <button onClick={()=>verSchedules(empresa.id)} className="status-button button">Ver Programaçoes</button> 
+        <div className="link-midias">
+          <a href={`https://www.facebook.com/${empresa.link_facebook}`} target="_blank" rel="noopener noreferrer">
+            <img src={face} alt="Facebook" />
+          </a>
+          <a href={`https://www.instagram.com/${empresa.link_facebook}`} target="_blank" rel="noopener noreferrer">
+            <img src={insta} alt="Instagram" />
+          </a>
+          <a href={`https://www.linkedin.com/${empresa.link_facebook}`} target="_blank" rel="noopener noreferrer">
+            <img src={linke} alt="Linkedin" />
+          </a>
+          <a href={`https://www.youtube.com/${empresa.link_facebook}`} target="_blank" rel="noopener noreferrer">
+            <img src={youtube} alt="Youtube" />
+          </a>
+        </div>
       </div>
 
       <div className="actions">
@@ -84,12 +105,12 @@ const ClienteItem: React.FC<ClienteItemProps> = ({ empresa, onDelete, onEdit }) 
           <button className="edit-button button" onClick={handleEdit}>
             <div className="sign">
               <span className="material-symbols-outlined" id='edit_icon' >
-              edit
+                edit
               </span>
             </div>
           </button>
         </div>
-        <button onClick={()=>verSchedules(empresa.id)} className="status-button button">Ver Programaçoes</button>
+        <img className='logo-emp' src={empresa.logo} alt="" />
       </div>
             
 

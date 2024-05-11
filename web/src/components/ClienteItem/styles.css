@@ -1,33 +1,46 @@
 #card {
-    width: 45rem;
+    width: 50rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     padding: 20px;
     margin-top: 15px;
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    
+}
+
+.link-midias{
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+.mail-container, .telefone-container, .razao-emp, .fantasia-emp{
+  margin-bottom: 8px;
+}
+.mail-container{
+  display: flex;
+  align-items: center;
+  
+  margin-bottom: 10px;
+}
+.mail-container, .telefone-container {
+  display: flex;
+  align-items: center;
+  text-decoration: none; 
 }
 
 
-#card h2 {
-    margin-top: 0;
-    margin-bottom: 10px;
+.link-contato:hover {
+  text-decoration: underline;
 }
-
-#card p {
-    margin-bottom: 5px;
+.mail-container span, .telefone-container span{
+  margin-right: 5px;
+  color: rgb(28, 25, 25);
 }
-
-#card a {
-    color: #007bff;
-    text-decoration: none;
-    line-height: 20px;
+.telefone-container{
+  display: flex;
+  align-items: center;
 }
-#card img{
-    width: 30px;
-}
-
 .delete-button {
     display: flex;
     align-items: center;
@@ -79,8 +92,10 @@
   }
 
   .buttons-editdel{
+    width: 100px;
     display: flex;
     justify-content: space-around;
+    margin: auto;
   }
 
    .button {
@@ -92,6 +107,7 @@
     font-size: 0.9em;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-bottom: 10px;
   }
   
    .button:hover {
@@ -105,4 +121,9 @@
     font-weight: 500;
   
   }
-  
+  .logo-emp{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin-top: 40px;
+  }

@@ -7,7 +7,8 @@ import EditScheduleModal from '../../components/EditScheduleModel';
 import Loader from '../../components/Loader'; 
 import './style.css'
 import PageHeader from '../../components/PageHeader';
-import NoSchedule from '../../components/NoSchedule';
+import NoSchedule from '../../components/NoItem';
+import NoItem from '../../components/NoItem';
 
 
 export interface Schedule {
@@ -99,7 +100,7 @@ const Schedules = () => {
         <Loader />
       ) : (
         schedules.length === 0 ? (
-          <NoSchedule/>
+          <NoItem text='Não há programações cadastradas...'/>
         ) : (
           schedules.map(schedule => (
             <ScheduleItem

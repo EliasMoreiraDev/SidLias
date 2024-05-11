@@ -6,7 +6,7 @@ import "./styles.css"
 import Input from '../../components/Input';
 
 import api from '../../api';
-
+import alertIcon from '../../assets/images/icons/warning-sign.png'
 
 function ClientForm(){
 
@@ -17,6 +17,7 @@ function ClientForm(){
     const [email, setEmail]= useState('')
     const [inativo, setInativo]= useState('')
     const [celular, setCelular]= useState('')
+    const [logo, setLogo]= useState('')
     const [link_instagram, setLink_instagram]= useState('')
     const [link_facebook, setLink_facebook]= useState('')
     const [link_linkedin, setLink_linkedin]= useState('')
@@ -24,7 +25,7 @@ function ClientForm(){
 
     function handleCreateUser(e: FormEvent){
         e.preventDefault()
-        console.log({razaoSocial,fantasia,email,celular, link_instagram,link_facebook,link_linkedin, link_youtube})
+        console.log({razaoSocial,fantasia,email,celular, link_instagram,link_facebook,link_linkedin, link_youtube, logo})
 
         api.post('/cadastro-cliente', {
             razaoSocial,
@@ -34,7 +35,8 @@ function ClientForm(){
             link_instagram,
             link_facebook,
             link_linkedin,
-            link_youtube
+            link_youtube,
+            logo
             
         }).then(()=>{
             alert('Cadastro realizado com sucesso')
@@ -57,11 +59,14 @@ function ClientForm(){
                         <Input name='link_facebook' label='Facebook' value={link_facebook} onChange={(e)=>{setLink_facebook(e.target.value)}}/>
                         <Input name='link_linkedin' label='Linkedin' value={link_linkedin} onChange={(e)=>{setLink_linkedin(e.target.value)}}/>
                         <Input name='link_youtube' label='Youtube' value={link_youtube} onChange={(e)=>{setLink_youtube(e.target.value)}}/>
+                        <Input placeholder='Cole a url da imagem' name='logo' label='Logo da Empresa' value={logo} onChange={(e)=>{setLogo(e.target.value)}}/>
                     </fieldset>
                     
                     <footer>
                         <p>
-                      
+                            <span className="material-symbols-outlined">
+                                warning
+                            </span>
                             Importante<br/>
                             Preencha todos os dados
                         </p>

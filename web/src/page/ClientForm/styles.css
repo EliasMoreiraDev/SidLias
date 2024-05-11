@@ -66,8 +66,9 @@
     line-height: 2.4rem;
     color: var(--color-text-complement);
 }
-#page-teacher-form main footer p img{
-    margin-right: 2rem;
+#page-teacher-form main footer p span{
+    margin-right: 0.7rem;
+    
 }
 #page-teacher-form main footer button{
     width: 100%;
