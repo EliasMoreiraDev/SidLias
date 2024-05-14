@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../api';
 import Input from '../../components/Input';
-import './style.css';
+import './newschedule.css';
 
 interface NewScheduleProps {
   isOpen: boolean;
@@ -45,9 +45,9 @@ function NewSchedule({ isOpen, onClose, cliente_id, setNewScheduleAdded }: NewSc
 
   return (
     <div className='modal_overlay'>
-      <div className='modal'>
+      <div className='modal-newschedule'>
         
-      <button onClick={onClose} className="buttonclose" id='close_button'>
+      <button onClick={onClose} id='close_button'>
         <span  className="material-symbols-outlined button__icon" id='close_icon' >
           close
         </span>

@@ -17,27 +17,25 @@ db.query(q, (err: any , results: any[]) => {
 });
 };
 
-export const addStatus = (req:Request, res:Response) => {
-  
-    const sql = "INSERT INTO dados.programacaostatus(`programacao_id`, `descricao`,`status`, `data`) VALUES(?,?,?,?)";
-  
-    const values = [
-      req.body.programacao_id,
-      req.body.descricao,
-      req.body.status,
-      req.body.data
-    ];
-    
-  
-    db.query(sql, values, (err: any) => {
-      if (err) {
-        console.error(err); 
-        return res.status(500).json("Erro ao criar usuário.");
-      }
-  
-      return res.status(200).json("Usuário criado com sucesso.");
-    });
-  };
+export const addStatus = (req: Request, res: Response) => {
+  const sql = "INSERT INTO dados.programacaostatus(`programacao_id`, `descricao`,`status`, `data`) VALUES(?,?,?,NOW())";
+
+  const values = [
+    req.body.programacao_id,
+    req.body.descricao,
+    req.body.status
+  ];
+
+  db.query(sql, values, (err: any) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json("Erro ao adicionar status.");
+    }
+
+    return res.status(200).json("Status adicionado com sucesso.");
+  });
+};
+
 
 
   export const consultStatus = (req: Request, res: Response) => {
@@ -60,20 +58,24 @@ export const addStatus = (req:Request, res:Response) => {
     });
   };
 
-  export const updateSchedule = (req: Request, res: Response) => {
-    const statusId = req.params.scheduleId;
-    const { descricao, status, data } = req.body;
+  export const updateStatus = (req: Request, res: Response) => {
+    const statusId = req.params.statusId;
+
+    if (!statusId) {
+      return res.status(400).json({ error: 'ID do status ausente na URL.' });
+    }
+    const { descricao, status } = req.body;
   
-    const sql = "UPDATE dados.programacaostatus SET descricao = ?, status = ?, data = ? WHERE id = ?";
-    const values = [descricao, status, data, statusId];
+    const sql = "UPDATE dados.programacaostatus SET descricao = ?, status = ? WHERE id = ?";
+    const values = [descricao, status, statusId];
   
     db.query(sql, values, (err: any) => {
       if (err) {
         console.error(err);
-        return res.status(500).json({ error: 'Erro ao atualizar o schedule.' });
+        return res.status(500).json({ error: 'Erro ao atualizar o Status.' });
       }
   
-      return res.status(200).json({ message: 'Schedule atualizado com sucesso.' });
+      return res.status(200).json({ message: 'Status atualizado com sucesso.' });
     });
   };
 

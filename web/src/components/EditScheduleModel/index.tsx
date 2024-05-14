@@ -51,20 +51,20 @@ const EditScheduleModal: React.FC<EditScheduleModalProps> = ({ isOpen, onClose, 
 
   return (
     <div className="modal_overlay">
-      <div className="modal">
-      <button onClick={onClose} className="close_button" id='close_button'>
-        <span  className="material-symbols-outlined button__icon" id='close_icon' >
-          close
-        </span>
-      </button>
-        <h2 className='titulo'>Editar Schedule</h2>
+      <div className="modal-edit-schedule">
+        <button onClick={onClose} className="close_button-edit-schedule" id='close_button'>
+          <span  className="material-symbols-outlined button__icon" id='close_icon' >
+            close
+          </span>
+        </button>
+        <h2 className='titulo'>Editar Programaçoes</h2>
         <form onSubmit={handleUpdate}>
           <Input name='descricao' label='Descrição' value={newDescricao} onChange={(e) => setNewDescricao(e.target.value)} />
           <Input name='data' label='Data' type='date' value={newData} onChange={(e) => setNewData(e.target.value)} />
           <Input name='hora' label='Hora' type='time' value={newHora} onChange={(e) => setNewHora(e.target.value)} />
         
 
-          <button type="submit">Atualizar</button>
+          <button className='confirm_button' type="submit">Atualizar</button>
         </form>
       </div>
     </div>

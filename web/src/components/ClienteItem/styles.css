@@ -41,7 +41,7 @@
   display: flex;
   align-items: center;
 }
-.delete-button {
+.delete-button-cliente {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -61,14 +61,14 @@
   }
   
   
- .delete-button:hover span.material-symbols-outlined {
+ .delete-button-cliente:hover span.material-symbols-outlined {
     transform: scale(1.2); 
     transition-duration: .3s;
   }
-  button.delete-button span.material-symbols-outlined {
+  button.delete-button-cliente span.material-symbols-outlined {
     transition: transform 0.3s; /* Adicionado transição para o ícone de delete */
   }
-  .edit-button {
+  .edit-button-cliente {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -83,15 +83,15 @@
     background: linear-gradient(-225deg, #473B7B 0%, #3584A7 51%, #30D2BE 100%);
   }
   
-  .edit-button:hover span.material-symbols-outlined {
+  .edit-button-cliente:hover span.material-symbols-outlined {
     transform: scale(1.2); 
     transition-duration: .3s;
   }
-  button.edit-button span.material-symbols-outlined {
+  button.edit-button-cliente span.material-symbols-outlined {
     transition: transform 0.3s; /* Adicionado transição para o ícone de delete */
   }
 
-  .buttons-editdel{
+  .buttons-editdel-cliente{
     width: 140px;
     display: flex;
     justify-content: space-between;
@@ -108,18 +108,19 @@
     cursor: pointer;
     transition: background-color 0.3s;
     margin-bottom: 10px;
+    
   }
   
    .button:hover {
     background-color: #0056b3;
   }
   
-   .status-button {
+   .ver-prog-button {
     margin-top: 15px;
     padding: 10px;
     font-size: 12pt;
     font-weight: 500;
-  
+    width: 100%;
   }
   .logo-emp{
     border-radius: 50%;

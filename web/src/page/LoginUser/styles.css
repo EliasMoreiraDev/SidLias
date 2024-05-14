@@ -7,12 +7,13 @@
 
 .formDiv{
     width: 420px;
-    background: #d8d7d7;
+    background: #f3f3f3;
     box-shadow: rgba(0, 0, 0, 0.219) 0px 3px 7px;
-    padding: 30px 40px;
+    padding: 10px 40px;
     border-radius: 20px;
 }
 .headerDiv{
+    margin-top: 10px;
     font-size:35px; 
 }
 .headerDiv h3{

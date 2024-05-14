@@ -79,9 +79,6 @@ export function Login() {
               <span>Login</span>
             </button>
           </div>
-
-          <hr />
-
           {error && ( 
             <div className="error-message">{error}</div>
           )}

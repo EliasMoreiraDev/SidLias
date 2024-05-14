@@ -16,7 +16,7 @@ export const getSchedules = (req:Request, res:Response) => {
 
 db.query(q, (err: any , results: any[]) => {
   if (err) {
-    console.error(err); // Registre o erro no console para análise
+    console.error(err);
     return res.status(500).json("Erro ao acessar banco.");
   }
 
@@ -67,14 +67,13 @@ export const addSchedule = (req:Request, res:Response) => {
     });
   };
   export const deleteSchedule = (req: Request, res: Response) => {
-    const scheduleId = req.params.scheduleId; // Obtém o ID do item de programação da URL
+    const scheduleId = req.params.scheduleId;
   
-    // Verifica se o ID do item de programação foi fornecido
     if (!scheduleId) {
       return res.status(400).json({ error: 'ID do item de programação ausente na URL.' });
     }
   
-    const sql = "DELETE FROM dados.programacao WHERE id = ?";
+    const sql = "DELETE FROM dados.programacao WHERE id = ?;";
     const values = [scheduleId];
   
     db.query(sql, values, (err: any) => {

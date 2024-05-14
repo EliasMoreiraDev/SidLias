@@ -45,7 +45,7 @@ function ClientForm(){
     }
     return(
         <div id='page-teacher-form' className='container'>
-            <PageHeader link='/cliente' description="O primeiro passo é preencher esse formulario de inscrição" title='Cadastro de Usuário'/>
+            <PageHeader link='/cliente' title='Cadastro de Usuário'/>
 
             <main>
                 <form onSubmit={handleCreateUser}>

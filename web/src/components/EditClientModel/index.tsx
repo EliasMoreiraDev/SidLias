@@ -66,7 +66,7 @@ const EditClientModal: React.FC<EditClientModalProps> = ({ isOpen, onClose, clie
   return (
     <div className="modal_overlay">
   <div className="modal">
-  <button onClick={onClose} className="buttonclose" id='close_button'>
+  <button onClick={onClose} className="close_button" id='close_button'>
         <span  className="material-symbols-outlined button__icon" id='close_icon' >
           close
         </span>
@@ -82,7 +82,7 @@ const EditClientModal: React.FC<EditClientModalProps> = ({ isOpen, onClose, clie
         <Input name="link_facebook" label="Facebook" value={newLinkFacebook} onChange={(e) => setNewLinkFacebook(e.target.value)} />
         <Input name="link_linkedin" label="Linkedin" value={newLinkLinkedin} onChange={(e) => setNewLinkLinkedin(e.target.value)} />
         <Input name="link_youtube" label="Youtube" value={newLinkYoutube} onChange={(e) => setNewLinkYoutube(e.target.value)} />
-        <Input name='logo' label='Logo da Empresa' value={newLogo} onChange={(e)=>{setNewLogo(e.target.value)}}/>
+        <Input name='logo' placeholder='Cole a URL da imagem' label='Logo da Empresa' value={newLogo} onChange={(e)=>{setNewLogo(e.target.value)}}/>
         <button onClick={handleUpdate} className='confirm_button' type="submit">Atualizar</button>
       </form>
     </div>

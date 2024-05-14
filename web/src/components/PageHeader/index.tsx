@@ -11,6 +11,7 @@ import { link } from 'fs';
 interface PageHeaderProps{
     title:string;
     children?:React.ReactNode;
+    funcionalidade?:React.ReactNode;
     description?:string,
     link: string
 }
@@ -23,6 +24,7 @@ const PageHeader:React.FC<PageHeaderProps> = (props) => {
                     <Link to={props.link}>
                        <img src={backIcon} alt="" />
                     </Link>
+                    {props.funcionalidade}
                     {/* <img src={logoImg} alt="" /> */}
                 </div>
                 <div className='header-content'>

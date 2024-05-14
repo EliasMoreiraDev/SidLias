@@ -1,65 +1,65 @@
 .button-add {
-    --font-color: #323232;
-    --bg-color-sub: #dedede;
-    --bg-color: #eee;
-    --main-color: #323232;
-    position: relative;
-    width: 150px;
-    height: 40px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    border: 2px solid var(--main-color);
-    box-shadow: 4px 4px var(--main-color);
-    background-color: var(--bg-color);
-    border-radius: 10px;
-    overflow: hidden;
-    margin: 15px auto;
-  }
+  --font-color: #32264D;
+  --bg-color-sub: #e9e0ff;
+  --bg-color: #F8F8FC;
+  --main-color: #32264D;
+  position: relative;
+  width: 180px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+  background-color: var(--bg-color);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 15px auto 25px auto;
+}
   
-  .button-add, .button__icon, .button__text {
-    transition: all 0.3s;
-  }
-  
-  .button-add .button__text {
-    transform: translateX(22px);
-    color: var(--font-color);
-    font-weight: 600;
-  }
-  
-  .button-add .button__icon {
-    position: absolute;
-    transform: translateX(109px);
-    height: 100%;
-    width: 39px;
-    background-color: var(--bg-color-sub);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .button-add .svg {
-    width: 20px;
-    fill: var(--main-color);
-  }
-  
-  .button-add:hover {
-    background: var(--bg-color);
-  }
-  
-  .button:hover .button__text {
-    color: transparent;
-  }
-  
-  .button-add:hover .button__icon {
-    width: 148px;
-    transform: translateX(0);
-  }
-  
-  .button-add:active {
-    transform: translate(3px, 3px);
-    box-shadow: 0px 0px var(--main-color);
-  }
+.button-add, .button__icon, .button__text {
+  transition: all 0.3s;
+}
+
+.button-add .button__text {
+  transform: translateX(22px);
+  color: var(--font-color);
+  font-weight: 600;
+}
+
+.button-add .button__icon {
+  position: absolute;
+  transform: translateX(125px);
+  height: 100%;
+  width: 51px;
+  background-color: var(--bg-color-sub);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-add .svg {
+  width: 20px;
+  fill: var(--main-color);
+}
+
+.button-add:hover {
+  background: var(--bg-color);
+}
+
+.button:hover .button__text {
+  color: transparent;
+}
+
+.button-add:hover .button__icon {
+  width: 180px;
+  transform: translateX(0);
+}
+
+.button-add:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0px 0px var(--main-color);
+}
   .agenda{
     display: flex;
     width: 920px;
@@ -67,4 +67,97 @@
     flex-wrap: wrap;
     column-count: 2;
     column-gap: 20px;
+  }
+  .delete-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: white;
+    border-radius: 10px;
+    transition-duration: 0.3s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+    background: rgb(255, 135, 65);
+    background: linear-gradient(
+      250deg,
+      rgba(255, 135, 65, 1) 15%,
+      rgba(255, 65, 65, 1) 65%
+    );
+  }
+  
+  .sign {
+    width: 100%;
+    transition-duration: 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .delete-button:hover span.material-symbols-outlined {
+    transform: scale(1.2); 
+    transition-duration: .3s;
+  }
+  button.delete-button span.material-symbols-outlined {
+    transition: transform 0.3s; /* Adicionado transição para o ícone de delete */
+  }
+  .edit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  
+    background: linear-gradient(-225deg, #473B7B 0%, #3584A7 51%, #30D2BE 100%);
+  }
+  
+  .sign {
+    width: 100%;
+    transition-duration: 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .edit-button:hover span.material-symbols-outlined {
+    transform: scale(1.2); 
+    transition-duration: .3s;
+  }
+  button.edit-button span.material-symbols-outlined {
+    transition: transform 0.3s; /* Adicionado transição para o ícone de delete */
+  }
+  .table-schedules{
+    width: 800px;
+    margin: auto;
+    border-collapse: collapse;
+    text-align: center;
+    border: 2px solid #32264D;
+    border-radius: 10px;
+  }
+  
+
+  .buttons-editdel{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .table-schedules th, .table-schedules tr, .table-schedules td {
+    border: 2px solid #32264D;
+    padding: 7px 0;
+  }
+
+  .table-schedules td.buttons-editdel {
+    border: none; 
+    padding: 0; 
+  }
+
+  .table-schedules td.buttons-editdel button {
+    margin: 10px 0; 
   }

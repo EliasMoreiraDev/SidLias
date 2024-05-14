@@ -70,10 +70,20 @@ function Cliente() {
   const criarCliente = () => {
     navigate('/cadastro-cliente')
   }
+  const criarUser = () => {
+    navigate('/cadastro-usuario')
+  }
 
   return (
     <div>
-      <PageHeader title='Lista de clientes' link='/' />
+      <PageHeader title='Lista de clientes' link='/' 
+      funcionalidade={    
+        <button className="signupBtn" onClick={criarUser}>
+            Cadastrar Usuário
+          <span className="arrow material-symbols-outlined">
+            chevron_right
+          </span>
+        </button> }/>
       
       <button onClick={criarCliente} className="button-addclient" type="button">
         <span className="button__text">Add Cliente</span>

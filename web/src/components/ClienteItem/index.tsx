@@ -76,7 +76,8 @@ const ClienteItem: React.FC<ClienteItemProps> = ({ empresa, onDelete, onEdit }) 
             <p className="link-contato">+{empresa.celular}</p>
           </a>
         
-        <button onClick={()=>verSchedules(empresa.id)} className="status-button button">Ver Programaçoes</button> 
+        <button onClick={()=>verSchedules(empresa.id)} className="ver-prog-button button">Ver Programações</button> 
+        
         <div className="link-midias">
           <a href={`https://www.facebook.com/${empresa.link_facebook}`} target="_blank" rel="noopener noreferrer">
             <img src={face} alt="Facebook" />
@@ -94,15 +95,15 @@ const ClienteItem: React.FC<ClienteItemProps> = ({ empresa, onDelete, onEdit }) 
       </div>
 
       <div className="actions">
-        <div className="buttons-editdel">
-          <button className="delete-button button" onClick={openConfirmation}>
+        <div className="buttons-editdel-cliente">
+          <button className="delete-button-cliente button" onClick={openConfirmation}>
             <div className="sign">
               <span className="material-symbols-outlined" id='edit_icon' >
                 delete
               </span>
             </div>
           </button>
-          <button className="edit-button button" onClick={handleEdit}>
+          <button className="button edit-button-cliente" onClick={handleEdit}>
             <div className="sign">
               <span className="material-symbols-outlined" id='edit_icon' >
                 edit

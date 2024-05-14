@@ -22,7 +22,7 @@ function UserForm(){
         e.preventDefault()
         console.log({email, senha, nome})
 
-        api.post('/cadastro-cliente', {
+        api.post('/cadastro-usuario', {
             email,
             senha, 
             nome
@@ -33,7 +33,7 @@ function UserForm(){
     }
     return(
         <div id='page-teacher-form' className='container'>
-            <PageHeader link='/cliente' description="O primeiro passo é preencher esse formulario de inscrição" title='Cadastro de Usuário'/>
+            <PageHeader link='/cliente' title='Cadastro de Usuário'/>
 
             <main>
                 <form onSubmit={handleCreateUser}>
@@ -48,7 +48,9 @@ function UserForm(){
                     
                     <footer>
                         <p>
-                      
+                            <span className="material-symbols-outlined">
+                                warning
+                            </span>
                             Importante<br/>
                             Preencha todos os dados
                         </p>
