@@ -44,7 +44,7 @@ export function Login() {
 
           <div className="inputDiv">
             <label htmlFor="username">E-mail</label>
-            <div className="input flex">
+            <div className={error ? 'error-input input flex' : 'input flex'}>
               <User className="icon" />
               <input
                 type="text"
@@ -60,7 +60,7 @@ export function Login() {
 
           <div className="inputDiv">
             <label htmlFor="password">Senha</label>
-            <div className="input flex">
+            <div className={error ? 'error-input input flex' : 'input flex'}>
               <Lock className="icon" />
               <input
                 type="password"
@@ -73,15 +73,15 @@ export function Login() {
               />
             </div>
           </div>
-
+          {error && ( 
+            <div className="error-message">Email ou senha incorretos*</div>
+          )}
           <div>
             <button type="submit" className="btn" onClick={user}>
               <span>Login</span>
             </button>
           </div>
-          {error && ( 
-            <div className="error-message">{error}</div>
-          )}
+          
 
         </form>
       </div>

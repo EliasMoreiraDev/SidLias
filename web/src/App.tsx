@@ -16,11 +16,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         
-        <Route path="/cadastro-cliente" element={<ClientForm/>} />
-        <Route path="/cadastro-usuario" element={<UserForm/>} />
-        <Route path="/cliente" element={<Cliente/>} />
+        <Route path="/cadastro-cliente" element={<RequireAuth><ClientForm/></RequireAuth>} />
+        <Route path="/cadastro-usuario" element={<RequireAuth><UserForm/></RequireAuth>} />
+        <Route path="/cliente" element={<RequireAuth><Cliente/></RequireAuth>} />
 
-        <Route path="/schedule/:clienteId" element={<Schedules/>} />
+        <Route path="/schedule/:clienteId" element={<RequireAuth><Schedules/></RequireAuth>} /> 
 
        
       </Routes>
