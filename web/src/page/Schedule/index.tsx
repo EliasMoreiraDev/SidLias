@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../../api';
-
 import { format } from 'date-fns';
 import './style.css';
 import PageHeader from '../../components/PageHeader';
@@ -11,6 +10,7 @@ import Loader from '../../components/Loader';
 import NoItem from '../../components/NoItem';
 import Confirmation from '../../components/Confirmacao';
 import AddStatus from '../AddStatus';
+import StatusPage from '../Status';
 
 export interface Schedule {
   id: number;
@@ -18,13 +18,14 @@ export interface Schedule {
   diasSemana: number;
   dataPrevista: Date;
 }
+
 interface Status {
   id: number;
   descricao: string;
   status: string;
   data: string;
   programacao_id: number;
-  usuario: string
+  usuario: string;
 }
 
 const Schedules = () => {
@@ -33,29 +34,14 @@ const Schedules = () => {
   const [isModalAddOpen, setIsModalAddOpen] = useState(false);
   const [isModalAddStatusOpen, setIsModalAddStatusOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
+  const [isModalStatusOpen, setIsModalStatusOpen] = useState(false);
   const [editingSchedule, setEditingSchedule] = useState<Schedule | null>(null);
+  const [editingStatus, setEditingStatus] = useState<Status | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [scheduleToDelete, setScheduleToDelete] = useState<number | null>(null);
   const [selectedScheduleId, setSelectedScheduleId] = useState<number | null>(null);
   const [status, setStatus] = useState<Status[] | null>(null);
-
-  const statusNames = [
-    { value: '0', label: 'Pedido' },
-    { value: '1', label: 'Em Produção' },
-    { value: '2', label: 'Finalizado' },
-    { value: '3', label: 'Aguardando Aprovação' },
-    { value: '4', label: 'Aprovado' },
-    { value: '5', label: 'Publicado' },
-    { value: '6', label: 'IMP' },
-    { value: '7', label: 'Relatório' }
-  ]
-  const getStatusLabel = (statusCode: string) => {
-    const statusCodeNumber = parseInt(statusCode, 10);
-    const statusObject = statusNames.find(status => status.value === statusCode.toString());
-    return statusObject ? statusObject.label : ''; 
-  };
-  
 
   useEffect(() => {
     fetchSchedules();
@@ -75,7 +61,7 @@ const Schedules = () => {
 
       const statusPromises = sortedSchedules.map(async (schedule: Schedule) => {
         try {
-          const statusResponse = await api.get(`/status/${schedule.id}`);
+          const statusResponse = await api.get(`/status`);
           const statusData: Status[] = statusResponse.data;
           console.log(statusData)
           setStatus(statusData)
@@ -101,6 +87,7 @@ const Schedules = () => {
   const closeModalAdd = () => {
     setIsModalAddOpen(false);
   };
+
   const openModalAddStatus = (scheduleId: number) => {
     setSelectedScheduleId(scheduleId);
     setIsModalAddStatusOpen(true);
@@ -118,6 +105,21 @@ const Schedules = () => {
   const closeModalEdit = () => {
     setEditingSchedule(null);
     setIsModalEditOpen(false);
+  };
+
+  const openModalStatus = (statusId: number) => {
+    if (status) {
+      const foundStatus = status.find(item => item.id === statusId);
+      if (foundStatus) {
+        setEditingStatus(foundStatus);
+        setIsModalStatusOpen(true);
+      }
+    }
+  };
+
+  const closeModalStatus = () => {
+    setEditingStatus(null);
+    setIsModalStatusOpen(false);
   };
 
   const handleDeleteSchedule = async (id: number) => {
@@ -148,6 +150,11 @@ const Schedules = () => {
     setScheduleToDelete(null);
   };
 
+  const getDayOfWeekInPortuguese = (day: number) => {
+    const daysOfWeek = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+    return daysOfWeek[day];
+  };
+
   return (
     <div>
       <PageHeader link='/cliente' title='Programações do cliente' />
@@ -160,6 +167,7 @@ const Schedules = () => {
       <NewSchedule isOpen={isModalAddOpen} onClose={closeModalAdd} cliente_id={clientId} setNewScheduleAdded={fetchSchedules} />
       <EditScheduleModal isOpen={isModalEditOpen} onClose={closeModalEdit} schedule={editingSchedule} setSchedule={setEditingSchedule} updateSchedules={fetchSchedules} />
       <AddStatus isOpen={isModalAddStatusOpen} onClose={closeModalAddStatus} programacao_id={selectedScheduleId} setAddStatusAdded={fetchSchedules} />
+      <StatusPage isOpen={isModalStatusOpen} onClose={closeModalStatus} status={editingStatus} setStatus={setEditingStatus} updateStatus={fetchSchedules} />
       <div className="agenda">
         {isLoading ? (
           <Loader />
@@ -184,16 +192,30 @@ const Schedules = () => {
                     <td className='descricao-item'>{schedule.descricao}</td>
                     <td className='data-item'>{formatDateTime(schedule.dataPrevista).formattedDate}</td>
                     <td className='hora-item'>{formatDateTime(schedule.dataPrevista).formattedTime}</td>
-                    <td className='status-item'>{getDayOfWeekInPortuguese(schedule.diasSemana)}</td>
-                    <td>
+                    <td className='diasemana-item'>{getDayOfWeekInPortuguese(schedule.diasSemana)}</td>
+                    <td className='status-item'>
                       {status &&
-                        <a href="">
-                          {status
+                        <button className='status-button' onClick={() => openModalStatus(
+                          status
                             .filter(item => item.programacao_id === schedule.id)
-                            .map(item => getStatusLabel(item.status))}
-                        </a>
+                            .map(item => item.id)[0]
+                        )}>
+                          <span className="status-text">
+                            {status
+                              .filter(item => item.programacao_id === schedule.id)
+                              .map(item => item.status)[0]
+                            }
+                          </span>
+                          {status.filter(item => item.programacao_id === schedule.id).length > 0 && (
+                            <span className="material-symbols-outlined icon">
+                              open_in_new
+                            </span>
+                          )}
+                        </button>
                       }
-                      {!status || status.filter(item => item.programacao_id === schedule.id).length === 0 && <button onClick={() => openModalAddStatus(schedule.id)}> + Add Status</button>}
+
+                      {!status || status.filter(item => item.programacao_id === schedule.id).length === 0 && <button onClick={() => openModalAddStatus(schedule.id)} className='add-status-button'> + Add Status</button>}
+
                     </td>
                     <td className="buttons-editdel ">
 
@@ -232,11 +254,6 @@ const Schedules = () => {
       </div>
     </div>
   );
-};
-
-const getDayOfWeekInPortuguese = (day: number) => {
-  const daysOfWeek = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
-  return daysOfWeek[day];
 };
 
 export default Schedules;

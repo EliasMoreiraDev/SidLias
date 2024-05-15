@@ -10,7 +10,7 @@
   align-items: center;
 }
 
-.modal-edit-schedule {
+.modal-edit-schedule, .modal-edit-status {
   background: white;
   padding: 0 30px 30px 30px;
   border-radius: 15px;

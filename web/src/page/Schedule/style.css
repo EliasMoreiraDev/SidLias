@@ -141,7 +141,9 @@
     border: 2px solid #32264D;
     border-radius: 10px;
   }
-  
+  .status-item{
+    width: 150px;
+  }
 
   .buttons-editdel{
     display: flex;
@@ -160,4 +162,39 @@
 
   .table-schedules td.buttons-editdel button {
     margin: 10px 0; 
+  }
+  .status-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    font-size: 13pt;
+    color: #1b4557;
+    border: none;
+    background-color: white;
+    line-height: 18px;
+  }
+  .status-button:hover{
+    color: #307592;
+    
+  }
+  .status-button:hover .status-text{
+    text-decoration: underline;
+  }
+  .status-button:hover .icon{
+    font-size: 19pt;
+    margin: 0;
+    padding: 0;
+  }
+  .add-status-button{
+    border-radius: 5px;
+    background-color: #473b7b;
+    color: #F8F8FC;
+    border: none;
+    padding: 8px;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.363);
+    cursor: pointer;
+  }
+  .add-status-button:hover{
+    background-color: #52407c;
   }

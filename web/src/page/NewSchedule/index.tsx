@@ -33,6 +33,9 @@ function NewSchedule({ isOpen, onClose, cliente_id, setNewScheduleAdded }: NewSc
 
       onClose();
       setNewScheduleAdded(true);
+      setData('')
+      setDescricao('')      
+      setHora('')
       navigate(`/schedule/${cliente_id}`, { replace: true });
 
     } catch (error) {
@@ -40,7 +43,7 @@ function NewSchedule({ isOpen, onClose, cliente_id, setNewScheduleAdded }: NewSc
       alert('Erro no Cadastro');
     }
   };
-
+  
   if (!isOpen) return null;
 
   return (

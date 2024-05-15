@@ -5,7 +5,7 @@ import Input from '../../components/Input';
 import '../NewSchedule/newschedule.css'
 import Select from '../../components/Select';
 
-interface AddStatusProps {
+export interface AddStatusProps {
   isOpen: boolean;
   onClose: () => void;
   programacao_id: number | null;
@@ -60,35 +60,35 @@ function AddStatus({ isOpen, onClose, programacao_id, setAddStatusAdded }: AddSt
           <Select label='Status' name='status' value={status} onChange={(e)=>{setStatus(e.target.value)}}
           options={[
             {
-              value:'0',
+              value:'Pedido',
               label:'Pedido'
             },
             {
-              value:'1',
+              value:'Em Produção',
               label:'Em Produção'
             },
             {
-              value:'2',
+              value:'Finalizado',
               label:'Finalizado'
             },
             {
-              value:'3',
+              value:'Aguardando Aprovação',
               label:'Aguardando Aprovação'
             },
             {
-              value:'4',
+              value:'Aprovado',
               label:'Aprovado'
             },
             {
-              value:'5',
+              value:'Publicado',
               label:'Publicado'
             },
             {
-              value:'6',
+              value:'IMP',
               label:'IMP'
             },
             {
-              value:'7',
+              value:'Relatório',
               label:'Relatório'
             }
           ]}

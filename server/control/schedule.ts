@@ -73,18 +73,26 @@ export const addSchedule = (req:Request, res:Response) => {
       return res.status(400).json({ error: 'ID do item de programação ausente na URL.' });
     }
   
-    const sql = "DELETE FROM dados.programacao WHERE id = ?;";
-    const values = [scheduleId];
+    const deleteStatusQuery = "DELETE FROM dados.programacaostatus WHERE programacao_id = ?";
+    const deleteScheduleQuery = "DELETE FROM dados.programacao WHERE id = ?";
   
-    db.query(sql, values, (err: any) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ error: 'Erro ao excluir o item de programação.' });
+    db.query(deleteStatusQuery, [scheduleId], (statusErr: any) => {
+      if (statusErr) {
+        console.error(statusErr);
+        return res.status(500).json({ error: 'Erro ao excluir os status relacionados.' });
       }
   
-      return res.status(200).json({ message: 'Item de programação excluído com sucesso.' });
+      db.query(deleteScheduleQuery, [scheduleId], (scheduleErr: any) => {
+        if (scheduleErr) {
+          console.error(scheduleErr);
+          return res.status(500).json({ error: 'Erro ao excluir o item de programação.' });
+        }
+  
+        return res.status(200).json({ message: 'Item de programação excluído com sucesso.' });
+      });
     });
   };
+  
   export const updateSchedule = (req: Request, res: Response) => {
     const scheduleId = req.params.scheduleId;
     const { descricao, diasSemana, dataPrevista } = req.body;
