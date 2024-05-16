@@ -11,6 +11,8 @@ import NoItem from '../../components/NoItem';
 import Confirmation from '../../components/Confirmacao';
 import AddStatus from '../AddStatus';
 import StatusPage from '../Status';
+import Select from '../../components/Select'; // Importe o componente Select se ainda não estiver importado
+import ScheduleTable from '../../components/TableSchedules';
 
 export interface Schedule {
   id: number;
@@ -19,7 +21,7 @@ export interface Schedule {
   dataPrevista: Date;
 }
 
-interface Status {
+export interface Status {
   id: number;
   descricao: string;
   status: string;
@@ -42,10 +44,12 @@ const Schedules = () => {
   const [scheduleToDelete, setScheduleToDelete] = useState<number | null>(null);
   const [selectedScheduleId, setSelectedScheduleId] = useState<number | null>(null);
   const [status, setStatus] = useState<Status[] | null>(null);
+  const [orderBy, setOrderBy] = useState<'recente' | 'antigo' | 'az'>('recente');
+  const [selectedStatus, setSelectedStatus] = useState<string>('');
 
   useEffect(() => {
     fetchSchedules();
-  }, [clientId]);
+  }, [clientId, orderBy, selectedStatus]);
 
   const fetchSchedules = async () => {
     setIsLoading(true);
@@ -53,31 +57,63 @@ const Schedules = () => {
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      const response = await api.get(`/schedules/${clientId}`);
-      const sortedSchedules = response.data.sort((a: Schedule, b: Schedule) => {
-        return new Date(a.dataPrevista).getTime() - new Date(b.dataPrevista).getTime();
-      });
-      setSchedules(sortedSchedules);
+      let response = await api.get(`/schedules/${clientId}`);
+      let fetchedSchedules: Schedule[] = response.data;
 
-      const statusPromises = sortedSchedules.map(async (schedule: Schedule) => {
+      // Ordenar as schedules de acordo com a opção selecionada
+      if (orderBy === 'recente') {
+        fetchedSchedules.sort((a: Schedule, b: Schedule) => {
+          return new Date(b.dataPrevista).getTime() - new Date(a.dataPrevista).getTime();
+        });
+      } else if (orderBy === 'antigo') {
+        fetchedSchedules.sort((a: Schedule, b: Schedule) => {
+          return new Date(a.dataPrevista).getTime() - new Date(b.dataPrevista).getTime();
+        });
+      } else if (orderBy === 'az') {
+        fetchedSchedules.sort((a: Schedule, b: Schedule) => {
+          return a.descricao.localeCompare(b.descricao);
+        });
+      }
+
+      // Filtrar as schedules de acordo com o status selecionado
+      if (selectedStatus !== '') {
+        if (selectedStatus === 'Sem Status') {
+          fetchedSchedules = fetchedSchedules.filter(schedule => {
+            const status = getStatusForSchedule(schedule.id);
+            return !status;
+          });
+        } else {
+          fetchedSchedules = fetchedSchedules.filter(schedule => {
+            const status = getStatusForSchedule(schedule.id);
+            return status && status.status === selectedStatus;
+          });
+        }
+      }
+
+      setSchedules(fetchedSchedules);
+
+      // Obter os status para cada programação
+      const statusPromises = fetchedSchedules.map(async (schedule: Schedule) => {
         try {
-          const statusResponse = await api.get(`/status`);
-          const statusData: Status[] = statusResponse.data;
-          console.log(statusData)
-          setStatus(statusData)
-
+          response = await api.get(`/status`);
+          const statusData: Status[] = response.data;
+          setStatus(statusData);
         } catch (error) {
           console.error('Erro ao buscar o status:', error);
-          return null;
         }
       });
     } catch (error) {
       console.error('Erro ao buscar as programações:', error);
     } finally {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 0);
+      setIsLoading(false);
     }
+  };
+
+  const getStatusForSchedule = (scheduleId: number): Status | undefined => {
+    if (status) {
+      return status.find(item => item.programacao_id === scheduleId);
+    }
+    return undefined;
   };
 
   const openModalAdd = () => {
@@ -127,7 +163,6 @@ const Schedules = () => {
       await api.delete(`/schedules/${id}`);
       const updatedSchedules = schedules.filter(schedule => schedule.id !== id);
       setSchedules(updatedSchedules);
-      fetchSchedules();
       closeConfirmation();
     } catch (error) {
       console.error('Erro ao excluir a programação:', error);
@@ -150,14 +185,53 @@ const Schedules = () => {
     setScheduleToDelete(null);
   };
 
+  const handleOrderByChange = (value: string) => {
+    setOrderBy(value as 'recente' | 'antigo' | 'az');
+  };
+
+  const handleStatusChange = (value: string) => {
+    setSelectedStatus(value);
+  };
   const getDayOfWeekInPortuguese = (day: number) => {
     const daysOfWeek = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
     return daysOfWeek[day];
   };
-
   return (
     <div>
-      <PageHeader link='/cliente' title='Programações do cliente' />
+      <PageHeader link='/cliente' title='Programações do cliente'>
+        <form id="search-teachers" onSubmit={fetchSchedules}>
+          <Select
+            label='Ordenar por'
+            name='orderBy'
+            value={orderBy}
+            onChange={(e) => handleOrderByChange(e.target.value)}
+            options={[
+              { value: 'recente', label: 'Mais recente' },
+              { value: 'antigo', label: 'Mais antigo' },
+              { value: 'az', label: 'A-Z' }
+            ]}
+          />
+          <Select
+            label='Status'
+            name='status'
+            value={selectedStatus}
+            option1={{ value: '', label: 'Todos os status'} }
+            onChange={(e) => handleStatusChange(e.target.value)}
+            options={[
+              { value: '', label: 'Todos os status'},
+              { value: 'Pedido', label: 'Pedido' },
+              { value: 'Em Produção', label: 'Em Produção' },
+              { value: 'Finalizado', label: 'Finalizado' },
+              { value: 'Aguardando Aprovação', label: 'Aguardando Aprovação' },
+              { value: 'Aprovado', label: 'Aprovado' },
+              { value: 'Publicado', label: 'Publicado' },
+              { value: 'IMP', label: 'IMP' },
+              { value: 'Relatório', label: 'Relatório' },
+              { value: 'Sem Status', label: 'Sem Status' } 
+            ]}
+          />
+        </form>
+      </PageHeader>
       <button onClick={openModalAdd} className="button-add" type="button">
         <span className="button__text">Add Item</span>
         <span className="material-symbols-outlined button__icon" id='edit_icon' >
@@ -169,78 +243,18 @@ const Schedules = () => {
       <AddStatus isOpen={isModalAddStatusOpen} onClose={closeModalAddStatus} programacao_id={selectedScheduleId} setAddStatusAdded={fetchSchedules} />
       <StatusPage isOpen={isModalStatusOpen} onClose={closeModalStatus} status={editingStatus} setStatus={setEditingStatus} updateStatus={fetchSchedules} />
       <div className="agenda">
-        {isLoading ? (
-          <Loader />
-        ) : (
-          schedules.length === 0 ? (
-            <NoItem text='Não há programações cadastradas...' />
-          ) : (
-            <table className='table-schedules'>
-              <thead>
-                <tr>
-                  <th className='descricao-titulo'>Descrição</th>
-                  <th className='data-titulo'>Data</th>
-                  <th className='hora-titulo'>Hora</th>
-                  <th className='diasem-titulo'>Dia da Semana</th>
-                  <th className='status-titulo'>Status</th>
-                  <th className='acoes-titulo'>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                {schedules.map(schedule => (
-                  <tr key={schedule.id}>
-                    <td className='descricao-item'>{schedule.descricao}</td>
-                    <td className='data-item'>{formatDateTime(schedule.dataPrevista).formattedDate}</td>
-                    <td className='hora-item'>{formatDateTime(schedule.dataPrevista).formattedTime}</td>
-                    <td className='diasemana-item'>{getDayOfWeekInPortuguese(schedule.diasSemana)}</td>
-                    <td className='status-item'>
-                      {status &&
-                        <button className='status-button' onClick={() => openModalStatus(
-                          status
-                            .filter(item => item.programacao_id === schedule.id)
-                            .map(item => item.id)[0]
-                        )}>
-                          <span className="status-text">
-                            {status
-                              .filter(item => item.programacao_id === schedule.id)
-                              .map(item => item.status)[0]
-                            }
-                          </span>
-                          {status.filter(item => item.programacao_id === schedule.id).length > 0 && (
-                            <span className="material-symbols-outlined icon">
-                              open_in_new
-                            </span>
-                          )}
-                        </button>
-                      }
-
-                      {!status || status.filter(item => item.programacao_id === schedule.id).length === 0 && <button onClick={() => openModalAddStatus(schedule.id)} className='add-status-button'> + Add Status</button>}
-
-                    </td>
-                    <td className="buttons-editdel ">
-
-                      <button className="delete-button" onClick={() => openConfirmation(schedule.id)}>
-                        <div className="sign">
-                          <span className="material-symbols-outlined" id='edit_icon'>
-                            delete
-                          </span>
-                        </div>
-                      </button>
-
-                      <button className="edit-button" onClick={() => openModalEdit(schedule)}>
-                        <div className="sign">
-                          <span className="material-symbols-outlined" id='edit_icon'>
-                            edit
-                          </span>
-                        </div>
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )
-        )}
+      <ScheduleTable
+        schedules={schedules}
+        status={status}
+        isLoading={isLoading}
+        onDeleteSchedule={handleDeleteSchedule}
+        onEditSchedule={openModalEdit}
+        onOpenModalStatus={openModalStatus}
+        onOpenModalAddStatus={openModalAddStatus}
+        onOpenConfirmation={openConfirmation}
+        formatDateTime={formatDateTime}
+        getDayOfWeekInPortuguese={getDayOfWeekInPortuguese}
+      />
         <Confirmation
           isOpen={isConfirmationOpen}
           onClose={closeConfirmation}

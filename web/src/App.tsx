@@ -21,7 +21,7 @@ function App() {
         <Route path="/cliente" element={<RequireAuth><Cliente/></RequireAuth>} />
 
         <Route path="/schedule/:clienteId" element={<RequireAuth><Schedules/></RequireAuth>} /> 
-
+        
        
       </Routes>
     </div>

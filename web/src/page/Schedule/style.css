@@ -14,10 +14,12 @@
   background-color: var(--bg-color);
   border-radius: 10px;
   overflow: hidden;
-  margin: 15px auto 25px auto;
+  margin: 45px auto 25px auto;
 }
-  
-.button-add, .button__icon, .button__text {
+
+.button-add,
+.button__icon,
+.button__text {
   transition: all 0.3s;
 }
 
@@ -60,141 +62,223 @@
   transform: translate(3px, 3px);
   box-shadow: 0px 0px var(--main-color);
 }
-  .agenda{
-    display: flex;
-    width: 920px;
-    margin: auto;
-    flex-wrap: wrap;
-    column-count: 2;
-    column-gap: 20px;
-  }
-  .delete-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 45px;
-    height: 45px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    color: white;
-    border-radius: 10px;
-    transition-duration: 0.3s;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-    background: rgb(255, 135, 65);
-    background: linear-gradient(
-      250deg,
+
+.delete-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: white;
+  border-radius: 10px;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background: rgb(255, 135, 65);
+  background: linear-gradient(250deg,
       rgba(255, 135, 65, 1) 15%,
-      rgba(255, 65, 65, 1) 65%
-    );
-  }
-  
-  .sign {
-    width: 100%;
-    transition-duration: 0.5s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .delete-button:hover span.material-symbols-outlined {
-    transform: scale(1.2); 
-    transition-duration: .3s;
-  }
-  button.delete-button span.material-symbols-outlined {
-    transition: transform 0.3s; /* Adicionado transição para o ícone de delete */
-  }
-  .edit-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 45px;
-    height: 45px;
-    color: white;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    transition-duration: 0.3s;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-  
-    background: linear-gradient(-225deg, #473B7B 0%, #3584A7 51%, #30D2BE 100%);
-  }
-  
-  .sign {
-    width: 100%;
-    transition-duration: 0.5s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .edit-button:hover span.material-symbols-outlined {
-    transform: scale(1.2); 
-    transition-duration: .3s;
-  }
-  button.edit-button span.material-symbols-outlined {
-    transition: transform 0.3s; /* Adicionado transição para o ícone de delete */
-  }
-  .table-schedules{
-    width: 800px;
-    margin: auto;
-    border-collapse: collapse;
-    text-align: center;
-    border: 2px solid #32264D;
-    border-radius: 10px;
-  }
-  .status-item{
-    width: 150px;
-  }
+      rgba(255, 65, 65, 1) 65%);
+}
 
-  .buttons-editdel{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-  .table-schedules th, .table-schedules tr, .table-schedules td {
-    border: 2px solid #32264D;
-    padding: 7px 0;
-  }
+.sign {
+  width: 100%;
+  transition-duration: 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .table-schedules td.buttons-editdel {
-    border: none; 
-    padding: 0; 
-  }
+.delete-button:hover span.material-symbols-outlined {
+  transform: scale(1.2);
+  transition-duration: .3s;
+}
 
-  .table-schedules td.buttons-editdel button {
-    margin: 10px 0; 
-  }
-  .status-button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    font-size: 13pt;
-    color: #1b4557;
-    border: none;
-    background-color: white;
-    line-height: 18px;
-  }
-  .status-button:hover{
-    color: #307592;
-    
-  }
-  .status-button:hover .status-text{
-    text-decoration: underline;
-  }
-  .status-button:hover .icon{
-    font-size: 19pt;
-    margin: 0;
-    padding: 0;
-  }
-  .add-status-button{
-    border-radius: 5px;
-    background-color: #473b7b;
-    color: #F8F8FC;
-    border: none;
-    padding: 8px;
-    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.363);
-    cursor: pointer;
-  }
-  .add-status-button:hover{
-    background-color: #52407c;
-  }
+button.delete-button span.material-symbols-outlined {
+  transition: transform 0.3s;
+  /* Adicionado transição para o ícone de delete */
+}
+
+.edit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+
+  background: linear-gradient(-225deg, #473B7B 0%, #3584A7 51%, #30D2BE 100%);
+}
+
+.sign {
+  width: 100%;
+  transition-duration: 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-button:hover span.material-symbols-outlined {
+  transform: scale(1.2);
+  transition-duration: .3s;
+}
+
+button.edit-button span.material-symbols-outlined {
+  transition: transform 0.3s;
+}
+
+.table-schedules {
+  border-collapse: collapse;
+  border-radius: 10px; 
+  width: 800px;
+  margin: auto;
+  text-align: center;
+}
+.status-item {
+  width: 150px;
+}
+
+.buttons-editdel {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.table-schedules th,
+.table-schedules tr,
+.table-schedules td {
+  border: 2px solid #32264D;
+  padding: 7px 0;
+  border-collapse: collapse;
+}
+
+
+.table-schedules td.buttons-editdel {
+  border: none;
+}
+.table-schedules td.buttons-editdel button {
+  margin: 10px auto;
+}
+
+.status-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  font-size: 13pt;
+  color: #1b4557;
+  border: none;
+  background-color: white;
+  line-height: 18px;
+}
+
+.status-button:hover {
+  color: #307592;
+
+}
+
+.status-button:hover .status-text {
+  text-decoration: underline;
+}
+
+.status-button:hover .icon {
+  font-size: 19pt;
+  margin: 0;
+  padding: 0;
+}
+
+.add-status-button {
+  border-radius: 5px;
+  background-color: #473b7b;
+  color: #F8F8FC;
+  border: none;
+  padding: 8px;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.363);
+  cursor: pointer;
+}
+
+.add-status-button:hover {
+  background-color: #52407c;
+}
+
+#search-teachers {
+  width: 40%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 16px;
+  margin: 0 auto -28px auto;
+}
+
+#search-teachers .input-block+.input-block,
+#search-teachers .select-block+.select-block {
+
+  margin-top: 0;
+}
+
+#search-teachers label {
+  color: var(--color-text-in-primary);
+}
+
+#search-teachers .input-block {
+  position: relative;
+}
+
+#search-teachers button {
+
+  width: 100%;
+  height: 5.6rem;
+  background-color: var(--color-secundary);
+  color: var(--color-button-text);
+  border: 0;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  margin-top: 3.2rem;
+}
+
+#search-teachers button:hover {
+  background-color: var(--color-secundary-dark);
+}
+
+#search-teachers .input-block+.input-block {
+
+  margin-top: 1.4rem;
+}
+
+#search-teachers .input-block label {
+  font-size: 1.4rem;
+}
+
+#search-teachers .input-block input {
+  width: 100%;
+  height: 5.6rem;
+  margin-top: 0.8rem;
+  border-radius: 0.8rem;
+  background-color: var(--color-input-background);
+  border: 1px solid var(--color-line-in-white);
+  outline: 0;
+  padding: 0 1.6rem;
+  font: 1.6rem Archivo;
+
+}
+
+#search-teachers .input-block:focus-within::after {
+  width: calc(100% - 3.2rem);
+  height: 2px;
+  content: '';
+  background-color: var(--color-primary-light);
+  position: absolute;
+  left: 1.6rem;
+  right: 1.6rem;
+  bottom: 0;
+}
